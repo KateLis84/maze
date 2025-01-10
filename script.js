@@ -1,6 +1,5 @@
 const player = document.getElementById('player');
 const goal = document.getElementById('goal');
-const message = document.getElementById('message');
 const maze = document.getElementById('maze');
 const container = document.querySelector('.container');
 
@@ -62,7 +61,6 @@ function updatePlayerPosition() {
 // Завершення гри
 function endGame() {
     maze.style.display = 'none';
-    message.style.display = 'none';
 
     const resultImage = document.createElement('img');
     resultImage.src = 'https://i.ibb.co/7nh9rNg/image.png';
@@ -72,20 +70,13 @@ function endGame() {
 
     const refreshButton = document.createElement('button');
     refreshButton.textContent = 'Refresh';
-    refreshButton.style.marginTop = '20px';
-    refreshButton.style.padding = '10px 20px';
-    refreshButton.style.fontSize = '1rem';
-    refreshButton.style.backgroundColor = '#d63384';
-    refreshButton.style.color = '#fff';
-    refreshButton.style.border = 'none';
-    refreshButton.style.borderRadius = '5px';
-    refreshButton.style.cursor = 'pointer';
     refreshButton.addEventListener('click', () => {
         location.reload();
     });
-
-    container.appendChild(resultImage);
+    
+    console.log(resultImage)
     container.appendChild(refreshButton);
+    container.appendChild(resultImage);
 }
 
 // Перевірка, чи можна рухатись
