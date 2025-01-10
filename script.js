@@ -6,7 +6,7 @@ const container = document.querySelector('.container');
 
 let playerPosition = { x: 0, y: 0 };
 const gridSize = 40;
-const goalPosition = { x: 11, y: 11 };
+const goalPosition = { x: 11, y: 11 }; // Позиція мети
 
 // Лабіринт
 const mazeMap = [
@@ -63,7 +63,6 @@ function updatePlayerPosition() {
 function endGame() {
     maze.style.display = 'none';
     message.style.display = 'none';
-    [...document.getElementsByClassName('text')].map((el)=> el.style.display = 'none')
 
     const resultImage = document.createElement('img');
     resultImage.src = 'https://i.ibb.co/7nh9rNg/image.png';
@@ -73,12 +72,20 @@ function endGame() {
 
     const refreshButton = document.createElement('button');
     refreshButton.textContent = 'Refresh';
+    refreshButton.style.marginTop = '20px';
+    refreshButton.style.padding = '10px 20px';
+    refreshButton.style.fontSize = '1rem';
+    refreshButton.style.backgroundColor = '#d63384';
+    refreshButton.style.color = '#fff';
+    refreshButton.style.border = 'none';
+    refreshButton.style.borderRadius = '5px';
+    refreshButton.style.cursor = 'pointer';
     refreshButton.addEventListener('click', () => {
         location.reload();
     });
-    
-    container.appendChild(refreshButton);
+
     container.appendChild(resultImage);
+    container.appendChild(refreshButton);
 }
 
 // Перевірка, чи можна рухатись
@@ -92,7 +99,24 @@ function canMove(x, y) {
     );
 }
 
-// Керування свайпами
+// Управління клавіатурою
+document.addEventListener('keydown', (event) => {
+    let newX = playerPosition.x;
+    let newY = playerPosition.y;
+
+    if (event.key === 'ArrowUp') newY--;
+    if (event.key === 'ArrowDown') newY++;
+    if (event.key === 'ArrowLeft') newX--;
+    if (event.key === 'ArrowRight') newX++;
+
+    if (canMove(newX, newY)) {
+        playerPosition.x = newX;
+        playerPosition.y = newY;
+        updatePlayerPosition();
+    }
+});
+
+// Управління свайпами
 let startX = 0;
 let startY = 0;
 
